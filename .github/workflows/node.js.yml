@@ -147,3 +147,32 @@ jobs:
           push: true
           tags: urooj275/frontend:latest
           file: ./client/Dockerfile
+
+  trivy_image_scan:
+    runs-on: Github_Runner
+    needs: build_frontend_docker_image_and_push   # or whatever job built/pushed your image
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy image scan for backend
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: image               
+          image-ref: urooj275/backend:latest
+          format: table
+          exit-code: '0'                 
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
+          
+      - name: Run Trivy image scan for frontend
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: image               
+          image-ref: urooj275/frontend:latest
+          format: table
+          exit-code: '0'              
+          ignore-unfixed: true
+          vuln-type: os,library
+          severity: CRITICAL,HIGH
