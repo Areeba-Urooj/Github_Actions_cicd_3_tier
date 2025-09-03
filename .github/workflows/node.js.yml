@@ -61,7 +61,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
 
   sonar-frontend:
-    runs-on: Agent-1
+    runs-on: Github_Runner
     needs: trivy_fs_scan
     steps:
       - name: Checkout code
@@ -81,7 +81,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   sonar-backend:
-    runs-on: Agent-1
+    runs-on: Github_Runner
     needs: sonar-frontend
     steps:
       - name: Checkout code
