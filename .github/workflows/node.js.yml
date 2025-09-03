@@ -70,7 +70,7 @@ jobs:
       - name: SonarQube Scan (client)
         uses: sonarsource/sonarqube-scan-action@master
         with:
-          projectBaseDir: client        # 👈 instead of working-directory
+          projectBaseDir: client        
           args: >
             -Dsonar.projectKey=myorg_client
             -Dsonar.projectName=myorg_client
@@ -121,7 +121,7 @@ jobs:
         with:
           context: ./api  
           push: true
-          tags: adijaiswal/backend:latest
+          tags: urooj275/backend:latest
           file: ./api/Dockerfile
 
   build_frontend_docker_image_and_push:
@@ -158,8 +158,8 @@ jobs:
       - name: Run Trivy image scan for backend
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          scan-type: image               # 👈 scan container image
-          image-ref: adijaiswal/backend:latest
+          scan-type: image               
+          image-ref: urooj275/backend:latest
           format: table
           exit-code: '0'                 
           ignore-unfixed: true
@@ -169,8 +169,8 @@ jobs:
       - name: Run Trivy image scan for frontend
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          scan-type: image               # 👈 scan container image
-          image-ref: adijaiswal/frontend:latest
+          scan-type: image               
+          image-ref: urooj275/frontend:latest
           format: table
           exit-code: '0'              
           ignore-unfixed: true
