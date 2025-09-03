@@ -45,7 +45,7 @@ jobs:
           gitleaks detect --source ./api --exit-code 1
 
   trivy_fs_scan:
-    runs-on: Agent-1
+    runs-on: Github_Runner
     needs: gitleaks-scan
     steps:
       - name: Checkout code
@@ -60,4 +60,42 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
 
- 
+  sonar-frontend:
+    runs-on: Agent-1
+    needs: trivy_fs_scan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: SonarQube Scan (client)
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          projectBaseDir: client        
+          args: >
+            -Dsonar.projectKey=myorg_client
+            -Dsonar.projectName=myorg_client
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  sonar-backend:
+    runs-on: Agent-1
+    needs: sonar-frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: SonarQube Scan (api)
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          projectBaseDir: api           
+          args: >
+            -Dsonar.projectKey=myorg_api
+            -Dsonar.projectName=myorg_api
+            -Dsonar.sources=.
+            -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/build/**
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
