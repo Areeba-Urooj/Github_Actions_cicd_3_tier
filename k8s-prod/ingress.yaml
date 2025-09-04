@@ -4,14 +4,11 @@ metadata:
   name: user-management-ingress
   namespace: prod
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # Use the AWS Load Balancer Controller
+    kubernetes.io/ingress.class: "alb"
 spec:
-  ingressClassName: nginx
   rules:
-    - host: adityajaiswal.com
-      http:
+    - http:
         paths:
           - path: /api
             pathType: Prefix
@@ -27,25 +24,3 @@ spec:
                 name: frontend-svc
                 port:
                   number: 80
-    - host: www.adityajaiswal.com
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-svc
-                port:
-                  number: 5000
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend-svc
-                port:
-                  number: 80
-  tls:
-    - hosts:
-        - adityajaiswal.com
-        - www.adityajaiswal.com
-      secretName: adityajaiswal-co-tls

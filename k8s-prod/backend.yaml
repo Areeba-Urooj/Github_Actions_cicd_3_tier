@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: adijaiswal/backend:latest
+          image: urooj275/backend:latest
           ports:
             - containerPort: 5000
           env:
@@ -48,4 +48,4 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
-  type: ClusterIP
+  type: LoadBalancer
