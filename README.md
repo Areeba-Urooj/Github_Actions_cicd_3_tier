@@ -1,3 +1,8 @@
+## Status
+
+> **Note**: CI/CD workflows are currently disabled for demonstration purposes. 
+> The project is fully functional and can be deployed manually using the provided instructions.
+
 # End-to-End CI/CD Pipeline for 3-Tier Application on AWS EKS
 
 [![Project Architecture](images/github-arch.png)]
