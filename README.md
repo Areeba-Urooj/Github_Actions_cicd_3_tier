@@ -1,8 +1,7 @@
 # End-to-End CI/CD Pipeline for 3-Tier Application on AWS EKS
 
-[![Build Status](https://github.com/username/repo/workflows/CI-CD/badge.svg)](https://github.com/username/repo/actions)
-[![Security Scan](https://github.com/username/repo/workflows/Security/badge.svg)](https://github.com/username/repo/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Project Architecture](images/github-arch.png)]
+[![Project Architecture](images/github-logs.png)]
 
 A production-ready, cloud-native CI/CD pipeline implementing DevOps best practices for automated deployment of containerized applications on AWS EKS.
 
